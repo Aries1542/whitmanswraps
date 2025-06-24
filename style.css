@@ -142,7 +142,7 @@ nav {
     text-align: center;
 
     padding: 425px 0 75px;
-    background-image: url('images/CoolImage.png');
+    background-image: url('images/Hero.png');
     background-size: cover;
     background-position: 50% 55%;
     background-repeat: no-repeat;
@@ -298,7 +298,7 @@ nav {
 }
 
 /* Privacy Policy Page */
-.privacy-policy h1, .privacy-policy h2 {
+.privacy-policy h1, .privacy-policy h2, .privacy-policy h3 {
     color: #1ecbb7;
 }
 
