@@ -297,6 +297,70 @@ nav {
     color: #333;
 }
 
+/* Join the Team Section Styles */
+.join-the-team {
+    max-width: 100%;
+    padding: 20px 20px;
+    text-align: center;
+    background-color: #1ecbb7;
+}
+
+.join-the-team h2, .join-the-team p {
+    color: #ffffff; 
+}
+
+.join-the-team p {
+    font-size: 1.2em;
+}
+
+/* Benefits Section Styles */
+.benefits {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #1a1a1a;
+    padding: 0 0;
+    gap: 0;
+}
+
+.benefits .benefits-image {
+    flex: 1;
+    max-width: 50%;
+    height: auto;
+    border-radius: 0;
+}
+
+.benefits .benefits-text {
+    flex: 1;
+    text-align: left;
+    padding: 40px;
+}
+
+.benefits ul {
+    list-style: none
+}
+
+.benefits h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #1ecbb7;
+}
+
+.benefits h3 {
+    font-size: 1.5em;
+    margin-bottom: 15px;
+    color: #1ecbb7;
+}
+
+.benefits p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #fff;
+    border-left: #1ecbb7 5px solid;
+    padding-left: 10px;
+}
+
 /* Privacy Policy Page */
 .privacy-policy h1, .privacy-policy h2, .privacy-policy h3 {
     color: #1ecbb7;
