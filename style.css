@@ -96,7 +96,7 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
+    padding: 0 20px;
     background-color: #1a1a1a;
 }
 
@@ -350,7 +350,6 @@ footer p {
 .reviews h2 {
     font-size: 2em;
     margin-bottom: 40px;
-    color: #ffffff;
 }
 
 .carousel-container {
@@ -362,7 +361,6 @@ footer p {
 .carousel-wrapper {
     overflow: hidden;
     border-radius: 10px;
-    position: relative;
 }
 
 .carousel-slide {
@@ -408,7 +406,6 @@ footer p {
 
 .reviewer strong {
     color: #1ecbb7;
-    font-size: 1.1em;
 }
 
 .reviewer span {
@@ -429,7 +426,6 @@ footer p {
     font-size: 1.5em;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    z-index: 10;
 }
 
 .carousel-btn:hover {
