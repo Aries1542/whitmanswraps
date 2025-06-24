@@ -54,6 +54,72 @@
                 </ul>
             </div>
         </section>
+
+        <section class="affiliate-form">
+            <h2>Sign Up for Our Affiliate Program</h2>
+            <p>Fill out the form below to join our team and start earning commissions</p>
+            
+            <form id="affiliateForm" onsubmit="event.preventDefault(); alert('Thank you for signing up!');">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name *</label>
+                        <input type="text" id="firstName" name="firstName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name *</label>
+                        <input type="text" id="lastName" name="lastName" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password">Password *</label>
+                        <input type="password" id="password" name="password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password *</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="country">Country</label>
+                    <select id="country" name="country">
+                        <option value="">Select your country (optional)</option>
+                        <option value="US">United States</option>
+                        <option value="CA">Canada</option>
+                        <option value="UK">United Kingdom</option>
+                        <option value="AU">Australia</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="instagram">Instagram Handle</label>
+                    <input type="text" id="instagram" name="instagram" placeholder="@yourusername">
+                </div>
+                
+                <div class="form-group">
+                    <label for="tiktok">TikTok Handle</label>
+                    <input type="text" id="tiktok" name="tiktok" placeholder="@yourusername">
+                </div>
+                
+                <div class="form-group">
+                    <label for="youtube">YouTube Channel</label>
+                    <input type="text" id="youtube" name="youtube" placeholder="https://youtube.com/yourchannel">
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn">Join</button>
+                </div>
+            </form>
+        </section>
+
     </main>
 
     <footer>
