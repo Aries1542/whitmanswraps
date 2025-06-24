@@ -299,7 +299,8 @@ nav {
 
 /* Join the Team Section Styles */
 .join-the-team {
-    padding: 20px 20px;
+    padding: 20px 0;
+    background-color: #121212;
     text-align: center;
 }
 
@@ -317,7 +318,6 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #121212;
     padding: 0 0;
     gap: 0;
 }
@@ -528,6 +528,7 @@ footer p {
 /* Affiliate Form Styles */
 .affiliate-form {
     padding: 60px 0;
+    background-color: #121212;
 }
 
 .affiliate-form h2 {
@@ -544,7 +545,7 @@ footer p {
     max-width: 850px;
     margin: 0 auto;
     padding: 40px;
-    background-color: #121212;
+    background-color: #1a1a1a;
     border-radius: 10px;
     border: 1px solid #333;
 }
