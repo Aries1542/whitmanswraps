@@ -199,7 +199,9 @@ nav {
     flex: 1;
     max-width: 50%; 
     border-radius: 5px;
+    max-height: 500px;
     object-fit: contain;
+    aspect-ratio: 16 / 9; 
 }
 
 
