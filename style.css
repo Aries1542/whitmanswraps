@@ -199,6 +199,7 @@ nav {
     flex: 1;
     max-width: 50%;
     height: auto;
+    max-height: 100%;
     border-radius: 5px;
 }
 
@@ -500,6 +501,7 @@ nav {
 .how-it-began .about-image {
     flex: 1;
     max-width: 50%;
+    max-height: 100%;
     height: auto;
     border-radius: 0;
 }
@@ -892,6 +894,7 @@ footer p {
     .how-they-work video, .how-it-began .about-image, .benefits .benefits-image {
         flex: 1;
         max-width: 100%;
+        max-height: 100%;
         order: -1; /* Show image/video first on mobile */
     }
     
@@ -981,6 +984,10 @@ footer p {
     
     body.menu-open {
         overflow: hidden;
+    }
+
+    .carousel-btn {
+        display: none;
     }
     
     /* Typography */
