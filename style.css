@@ -197,10 +197,9 @@ nav {
 
 .how-they-work video {
     flex: 1;
-    max-width: 50%;
-    height: auto;
-    max-height: 100%;
+    max-width: 50%; 
     border-radius: 5px;
+    object-fit: contain;
 }
 
 
@@ -894,7 +893,6 @@ footer p {
     .how-they-work video, .how-it-began .about-image, .benefits .benefits-image {
         flex: 1;
         max-width: 100%;
-        max-height: 100%;
         order: -1; /* Show image/video first on mobile */
     }
     
@@ -984,10 +982,6 @@ footer p {
     
     body.menu-open {
         overflow: hidden;
-    }
-
-    .carousel-btn {
-        display: none;
     }
     
     /* Typography */
@@ -1092,14 +1086,33 @@ footer p {
         left: 10px;
     }
     
-    .next-btn {
-        right: 10px;
+    /* Reposition carousel buttons below cards in mobile view */
+    .carousel-container {
+        padding-bottom: 60px;
+        position: relative;
     }
     
     .carousel-btn {
+        position: static;
+        display: inline-block;
         width: 40px;
         height: 40px;
         font-size: 1.2em;
+        margin: 20px 5px 0;
+        transform: none;
+    }
+    
+    .carousel-container .carousel-buttons {
+        text-align: center;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: 10;
+    }
+    
+    .prev-btn, .next-btn {
+        position: static;
     }
     
     .review-card {

@@ -50,34 +50,6 @@ function showSlide(index) {
     }
 }
 
-// Touch/swipe functionality for mobile
-let startX = 0;
-let endX = 0;
-
-document.addEventListener('touchstart', function(e) {
-    startX = e.changedTouches[0].screenX;
-});
-
-document.addEventListener('touchend', function(e) {
-    endX = e.changedTouches[0].screenX;
-    handleSwipe();
-});
-
-function handleSwipe() {
-    const swipeThreshold = 50;
-    const diff = startX - endX;
-    
-    if (Math.abs(diff) > swipeThreshold) {
-        if (diff > 0) {
-            // Swiped left - next slide
-            changeSlide(1);
-        } else {
-            // Swiped right - previous slide
-            changeSlide(-1);
-        }
-    }
-}
-
 // Mobile Navigation Toggle
 document.addEventListener('DOMContentLoaded', function() {
     // Add mobile navigation toggle functionality
