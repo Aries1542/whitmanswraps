@@ -26,8 +26,32 @@
 
         <section id="product" class="product">
             <div class="product-gallery">
-                <img src="images/Product.webp" alt="Product Image">
-            </div>
+                <div class="main-image-container">
+                    <img src="images/Wrap.webp" alt="Product Image" id="main-product-image">
+                    <video controls id="main-product-video" style="display: none;">
+                        <source src="images/howTheyWork.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="gallery-thumbnails">
+                    <div class="thumbnail active" data-type="image" data-src="images/Wrap.webp" data-image-id="image1">
+                        <img src="images/Wrap.webp" alt="Product Image 1">
+                    </div>
+                    <div class="thumbnail" data-type="image" data-src="images/WrapBag.webp" data-image-id="image2">
+                        <img src="images/WrapBag.webp" alt="Product Image 2">
+                    </div>
+                    <div class="thumbnail" data-type="image" data-src="images/WrapRolled.webp" data-image-id="image3">
+                        <img src="images/WrapRolled.webp" alt="Product Image 3">
+                    </div>
+                    <div class="thumbnail" data-type="image" data-src="images/Wraps.webp" data-image-id="image4">
+                        <img src="images/Wraps.webp" alt="Product Image 4">
+                    </div>
+                    <div class="thumbnail" data-type="video" data-src="images/howTheyWork.mp4">
+                        <img src="images/HowTheyWorkCover.png" alt="Product Video" class="video-thumbnail">
+                        <span class="video-icon">▶</span>
+                    </div>
+                </div>
+                </div>
             <div class="product-details">
                 <h2>Whitmans Wraps</h2>
                 <p class="price">$59.00 USD</p>
@@ -40,6 +64,15 @@
                         </select>
                     </div>
                     <div class="form-group">
+                        <label for="color">Size:</label>
+                        <select id="size" name="size">
+                            <option value="small">Small</option>
+                            <option value="medium">Medium</option>
+                            <option value="large">Large</option>
+                            <option value="xlarge">X-Large</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="quantity">Quantity:</label>
                         <input type="number" id="quantity" name="quantity" value="1" min="1">
                     </div>
@@ -48,15 +81,30 @@
             </div>
         </section>
 
-        <section class="how-they-work">
-                <div class="how-they-work-text">
-                    <h2>How They Work</h2>
-                    <p>These cotton lifting straps <strong>self apply</strong>, making them faster, easier, and more fun to use. They work similar to a slap on bracelet, just place them on the bar, apply a little pressure and they'll wrap themselves around the bar!</p>
-                </div>
-                <video controls>
-                    <source src="images/howTheyWork.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+        <section class="product-info">
+            <div class="product-function">
+                <h3>How They Work</h3>
+                <p>These cotton lifting straps <strong>self apply</strong>, making them faster, easier, and more fun to use. They work similar to a slap on bracelet, just place them on the bar, apply a little pressure and they'll wrap themselves around the bar!</p>
+            </div>
+            <div class="product-features">
+                <h3>Product Specs</h3>
+                <ul>
+                    <li>Self Applying Material</li>
+                    <li>Neoprene Padding</li>
+                    <li>Silicone Grip</li>
+                    <li>Whitmans Wraps Logo</li>
+                    <li>Storage Bag</li>
+                    <li>Full Set (2 Straps)</li>
+                </ul>
+            </div>
+            <div class="product-specs">
+                <h3>Product Specs</h3>
+                <ul>
+                    <li>Material: Cotton</li>
+                    <li>Weight: 1.76 Ounces</li>
+                    <li>Dimensions: 20.8"L x 1.5"W</li>
+                </ul>
+            </div>
         </section>
 
         <section class="reviews">
@@ -152,5 +200,6 @@
     </footer>
     
     <script src="app.js"></script>
+    <script src="wraps.js"></script>
 </body>
 </html>

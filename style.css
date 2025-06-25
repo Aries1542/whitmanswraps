@@ -258,6 +258,197 @@ nav {
     color: #ffffff;
 }
 
+/* Product Gallery Styles */
+.product-gallery {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-gallery h2 {
+    text-align: center;
+}
+
+.main-image-container {
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    background-color: #121212;
+}
+
+.main-image-container img,
+.main-image-container video {
+    width: 100%;
+    display: block;
+    border-radius: 5px;
+    transition: opacity 0.3s ease;
+    object-fit: contain;
+}
+
+.gallery-thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.thumbnail {
+    width: calc(20% - 8px);
+    cursor: pointer;
+    position: relative;
+    border: 2px solid transparent;
+    border-radius: 4px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.thumbnail img {
+    width: 100%;
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.thumbnail.active {
+    border-color: #1ecbb7;
+}
+
+.thumbnail:hover {
+    box-shadow: 0 3px 10px rgba(0, 203, 183, 0.3);
+}
+
+.thumbnail:hover img {
+    transform: scale(1.05);
+}
+
+.video-thumbnail {
+    position: relative;
+}
+
+.video-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    background-color: rgba(30, 203, 183, 0.8);
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.thumbnail:hover .video-icon {
+    transform: translate(-50%, -50%) scale(1.2);
+    background-color: #1ecbb7;
+}
+
+@media (max-width: 768px) {
+    .gallery-thumbnails {
+        justify-content: center;
+    }
+    
+    .thumbnail {
+        width: calc(20% - 8px);
+    }
+}
+
+@media (max-width: 480px) {
+    .thumbnail {
+        width: calc(25% - 8px);
+    }
+}
+
+/* Product Info Styles */
+.product-info {
+    background-color: #121212;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 60px 40px;
+    gap: 30px;
+    text-align: left;
+}
+
+.product-info h2 {
+    color: #1ecbb7;
+    margin-bottom: 20px;
+}
+
+.product-info h3 {
+    color: #1ecbb7;
+    margin-bottom: 20px;
+}
+
+.product-info p {
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.product-function,
+.product-specs,
+.product-features {
+    flex: 1;
+    min-width: 300px;
+    padding: 20px;
+    background-color: #1a1a1a;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-function:hover,
+.product-specs:hover,
+.product-features:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.product-specs ul, .product-features ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.product-specs li, .product-features li {
+    padding: 10px 0;
+    border-bottom: 1px solid #333;
+    color: #ffffff;
+    position: relative;
+    padding-left: 25px;
+}
+
+.product-specs li:last-child, .product-features li:last-child {
+    border-bottom: none;
+}
+
+.product-features li::before {
+    content: "✓";
+    color: #1ecbb7;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+@media (max-width: 992px) {
+    .product-info {
+        flex-direction: column;
+    }
+    
+    .product-function,
+    .product-specs,
+    .product-sizing {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+}
+
 /* Community Section Styles */
 
 .community {
@@ -912,3 +1103,26 @@ footer p {
         font-size: 1.1em;
     }
 }
+
+/* Color Transition Styles */
+.main-image-container img,
+.thumbnail img {
+    transition: all 0.3s ease;
+}
+
+.color-transition {
+    animation: colorTransition 0.5s ease;
+}
+
+@keyframes colorTransition {
+    0% {
+        opacity: 0.8;
+        transform: scale(0.98);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Custom Styles */
