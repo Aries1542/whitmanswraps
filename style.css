@@ -82,7 +82,7 @@ section {
 }
 
 .btn:hover {
-    background-color: #18a090
+    background: #18a090;
 }
 
 
@@ -165,11 +165,18 @@ nav {
 .hero .btn {
     padding: 20px 50px;
     font-size: 2em;
-    
+    box-shadow: #000a 10px 10px 20px;
+    transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.1s ease, transform 0.1s ease;
 }
 
 .hero .btn:hover {
     background-color: #18a090;
+    box-shadow: #000a 10px 10px 10px;
+}
+
+.hero .btn:active {
+    box-shadow: #000a 0px 0px 0px;
+    transform: translateY(2px);
 }
 
 /* How They Work Section Styles*/
@@ -458,7 +465,7 @@ nav {
 
     padding: 60px 20px;
     text-align: center;
-    background-color: #1ecbb7;
+    background: #1ECBB7;
 }
 
 .community h2, .community p {
@@ -480,7 +487,7 @@ nav {
 }
 
 .community .btn {
-    background-color: #ffffff;
+    background: #FFF;
     color: #1a1a1a;
 }
 
