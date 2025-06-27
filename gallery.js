@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'image2': 'images/WrapBag.webp',
             'image3': 'images/WrapRolled.webp',
             'image4': 'images/Wraps.webp',
-            'video': 'images/howTheyWork.mp4',
+            'video': 'images/HowTheyWork.mp4',
             'videoCover': 'images/HowTheyWorkCover.png'
         },
         teal: {
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'image2': 'images/WrapBagTeal.webp',
             'image3': 'images/WrapRolledTeal.webp',
             'image4': 'images/Wraps.webp',
-            'video': 'images/howTheyWork.mp4',
+            'video': 'images/HowTheyWork.mp4',
             'videoCover': 'images/HowTheyWorkCover.png'
         }
     };
