@@ -30,7 +30,7 @@
                 <div class="main-image-container">
                     <img src="images/Wrap.webp" alt="Product Image" id="main-product-image">
                     <video controls id="main-product-video" style="display: none;">
-                        <source src="images/howTheyWork.mp4" type="video/mp4">
+                        <source src="images/HowTheyWork.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -68,10 +68,32 @@
                         <label for="quantity">Quantity:</label>
                         <input type="number" id="quantity" name="quantity" value="1" min="1">
                     </div>
-                    <button type="submit" class="btn">Add to Cart</button>
+                    <button type="submit" id="add-to-cart" class="btn">Add to Cart</button>
                 </form>
             </div>
             <script src="gallery.js"></script>
+        </section>
+
+        <section id="cart" class="cart">
+            <h2>Your Cart</h2>
+            <div class="cart-container">
+                <div class="cart-column cart-items-column">
+                    <div id="cart-items" class="cart-items">
+                    </div>
+                    <div class="cart-total">
+                        <strong>Subtotal:</strong> <span id="cart-total">$0.00</span>
+                    </div>
+                </div>
+                <div class="cart-column cart-actions-column">
+                    <button id="clear-cart-btn" class="btn">Clear Cart</button>
+                    <button id="checkout-btn" class="btn">Proceed to Checkout</button>
+                </div>
+            </div>
+            <script
+            src="https://sandbox.nmi.com/token/CollectCheckout.js"
+            data-checkout-key="checkout_public_853N3953v4tSEUac44vfpgE2dzcf66NE"
+            ></script>
+            <script src="cart.js"></script>
         </section>
 
         <section class="product-info">
