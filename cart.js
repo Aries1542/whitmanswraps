@@ -13,8 +13,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const colorSelect = document.getElementById('color');
     const quantityInput = document.getElementById('quantity');
     const colorToSku = {
-        black: "Black Wraps",
-        teal: "Teal Wraps",
+        black: "Wrp-Blk",
+        teal: "Wrp-Tl",
+    };
+    const skuToName = {
+        "Wrp-Blk": "Black Wraps",
+        "Wrp-Tl": "Teal Wraps",
     };
     const lineItems = [];
 
@@ -48,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (item.quantity > 0) {
                 const cartItem = document.createElement('div');
                 cartItem.classList.add('cart-item');
-                cartItem.textContent = `${item.quantity} x ${item.sku}`;
+                cartItem.textContent = `${item.quantity} x ${skuToName[item.sku]}`;
                 cartItems.appendChild(cartItem);
             }
         }
@@ -59,11 +63,34 @@ document.addEventListener('DOMContentLoaded', function () {
     checkoutButton.addEventListener('click', function (e) {
         CollectCheckout.redirectToCheckout({
             lineItems: lineItems,
+            collectShippingInfo: true,
+            paymentMethods: [
+                {
+                    type: "creditCard",
+                    use3DSecure: false,
+                },
+                {
+                    type: "check",
+                },
+                {
+                    type: "googlePay",
+                    use3DSecure: false,
+                },
+                {
+                    type: "applePay",
+                    use3DSecure: false,
+                },
+            ],
             successUrl: 'https://aries1542.github.io/whitmanswraps/',
+            receipt: {
+                showReceipt: true,
+                redirectToSuccessUrl: true,
+                sendToCustomer: true,
+            },
         }).then((error) => {
             console.log(error);
         });
     });
 
-updateCart();
+    updateCart();
 });
