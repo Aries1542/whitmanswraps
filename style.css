@@ -145,8 +145,8 @@ nav {
     align-items: center;
     text-align: center;
 
-    padding: 425px 0 75px;
-    background-image: url('images/Hero.png');
+    padding: 500px 0 200px;
+    background-image: url('images/Hero1.jpg');
     background-size: cover;
     background-position: 50% 55%;
     background-repeat: no-repeat;
@@ -220,10 +220,12 @@ nav {
     gap: 60px;
     text-align: left;
     background-color: #121212;
+    align-items: flex-start;
 }
 
 .product-gallery {
     flex: 1;
+    height: fit-content;
 }
 
 .product-gallery img {
@@ -285,11 +287,16 @@ nav {
     overflow: hidden;
     position: relative;
     background-color: #121212;
+    max-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .main-image-container img,
 .main-image-container video {
     width: 100%;
+    max-height: 400px;
     display: block;
     border-radius: 5px;
     transition: opacity 0.3s ease;

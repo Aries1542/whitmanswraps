@@ -9,18 +9,18 @@ document.addEventListener('DOMContentLoaded', function() {
     // Define image paths for different colors
     const imagePaths = {
         black: {
-            'image1': 'images/Wrap.webp',
-            'image2': 'images/WrapBag.webp',
-            'image3': 'images/WrapRolled.webp',
-            'image4': 'images/Wraps.webp',
+            'image1': 'images/WrapBlack.png',
+            'image2': 'images/WrapBlackBag.png',
+            'image3': 'images/WrapBlackRolled.png',
+            'image4': 'images/InUse4.jpg',
             'video': 'images/HowTheyWork.mp4',
             'videoCover': 'images/HowTheyWorkCover.png'
         },
         teal: {
-            'image1': 'images/WrapTeal.webp',
-            'image2': 'images/WrapBagTeal.webp',
-            'image3': 'images/WrapRolledTeal.webp',
-            'image4': 'images/Wraps.webp',
+            'image1': 'images/WrapTeal.png',
+            'image2': 'images/WrapTealBag.png',
+            'image3': 'images/WrapTealRolled.png',
+            'image4': 'images/InUse4.jpg',
             'video': 'images/HowTheyWork.mp4',
             'videoCover': 'images/HowTheyWorkCover.png'
         }
