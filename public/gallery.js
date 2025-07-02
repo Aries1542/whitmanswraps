@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const thumbnails = document.querySelectorAll('.thumbnail');
     const mainImage = document.getElementById('main-product-image');
     const mainVideo = document.getElementById('main-product-video');
-    const colorSelect = document.getElementById('color');
-    let currentColor = 'black'; // Default color
+    const itemSelect = document.getElementById('item');
+    let currentColor = 'wrp-blk'; // Default color
     
     // Define image paths for different colors
     const imagePaths = {
-        black: {
+        'wrp-blk': {
             'image1': 'images/WrapBlack.png',
             'image2': 'images/WrapBlackBag.png',
             'image3': 'images/WrapBlackRolled.png',
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
             'video': 'images/HowTheyWork.mp4',
             'videoCover': 'images/HowTheyWorkCover.png'
         },
-        teal: {
+        'wrp-tl': {
             'image1': 'images/WrapTeal.png',
             'image2': 'images/WrapTealBag.png',
             'image3': 'images/WrapTealRolled.png',
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         imageElements.forEach(element => {
             const imageId = element.getAttribute('data-image-id');
-            if (imageId && imagePaths[color][imageId] && (imagePaths['black'][imageId] != imagePaths['teal'][imageId])) {
+            if (imageId && imagePaths[color][imageId]) {
                 element.setAttribute('data-src', imagePaths[color][imageId]);
                 element.querySelector('img').src = imagePaths[color][imageId];
             }
@@ -71,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     // Add event listener to color selector
-    colorSelect.addEventListener('change', function() {
+    itemSelect.addEventListener('change', function() {
         currentColor = this.value;
         updateGallery(currentColor);
     });
