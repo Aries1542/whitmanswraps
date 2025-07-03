@@ -128,6 +128,8 @@ app.post('/checkout', async (req, res) => {
 	let inputLineItems = req.body.lineItems ? req.body.lineItems : [];
 	if (inputLineItems.length === 0) {
 		return res.status(400).json({ error: 'No line items provided' });
+	} else if (inputLineItems.length === 1 && inputLineItems[0].itemId === "exp-ship") {
+		return res.status(400).json({ error: 'No product selected' });
 	}
 
 	let lineItemslist = [];

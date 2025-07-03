@@ -1093,6 +1093,10 @@ footer p {
 }
 
 @media (max-width: 768px) {
+    .how-they-work video {
+        max-height: 300px;
+    }
+
     /* Navigation */
     .mobile-nav-toggle {
         display: block;
