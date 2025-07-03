@@ -673,10 +673,10 @@ nav {
 /* How It Began Section Styles */
 .how-it-began {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    background-color: #1ecbb7; 
-    color: #ffffff;
+    background-color: #121212; 
+    color: #dddddd;
     padding: 0 0;
     gap: 0;
 }
@@ -699,13 +699,14 @@ nav {
     font-size: 2.5em;
     margin-bottom: 20px;
     text-align: center;
-    color: #333;
+    color: #1ECBB7;
 }
 
 .how-it-began p {
-    font-size: 1.2em;
-    line-height: 1.6;
-    color: #333;
+    margin: 0 0 35px 0;
+    font-size: 1em;
+    line-height: 1.5;
+    color: #dddddd;
 }
 
 /* Join the Team Section Styles */
