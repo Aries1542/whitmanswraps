@@ -82,9 +82,6 @@ function getAnAcceptPaymentPage(lineItems, callback) {
 	getRequest.setMerchantAuthentication(merchantAuthentication);
 	getRequest.setTransactionRequest(transactionRequest);
 	getRequest.setHostedPaymentSettings(settings);
-	
-
-	//console.log(JSON.stringify(getRequest.getJSON(), null, 2));
 
 	var ctrl = new APIControllers.GetHostedPaymentPageController(getRequest.getJSON());
     // Uncomment for PRODUCTION use
@@ -96,28 +93,19 @@ function getAnAcceptPaymentPage(lineItems, callback) {
 
 		if (apiResponse != null) var response = new APIContracts.GetHostedPaymentPageResponse(apiResponse);
 
-		//pretty print response
-		//console.log(JSON.stringify(response, null, 2));
-
 		if(response != null) 
 		{
-			if(response.getMessages().getResultCode() == APIContracts.MessageTypeEnum.OK)
+			if(!(response.getMessages().getResultCode() == APIContracts.MessageTypeEnum.OK))
 			{
-				console.log('Hosted payment page token :');
-				console.log(response.getToken());
-			}
-			else
-			{
-				//console.log('Result Code: ' + response.getMessages().getResultCode());
-				console.log('Error Code: ' + response.getMessages().getMessage()[0].getCode());
-				console.log('Error message: ' + response.getMessages().getMessage()[0].getText());
+				console.error('Error Code: ' + response.getMessages().getMessage()[0].getCode());
+				console.error('Error message: ' + response.getMessages().getMessage()[0].getText());
 			}
 		}
 		else
 		{
 			var apiError = ctrl.getError();
-			console.log(apiError);
-			console.log('Null response received');
+			console.error(apiError);
+			console.error('Null response received');
 		}
 
 		callback(response);
