@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
     const addToCartButton = document.getElementById('add-to-cart');
     const clearCartButton = document.getElementById('clear-cart-btn');
+    const shippingInfoButton = document.getElementById('shipping-info-btn');
+    const shippingForm = document.getElementById('shipping-form');
     const checkoutButton = document.getElementById('checkout-btn');
     const expressShippingCheckbox = document.getElementById('express-shipping-checkbox');
     const cart = document.getElementById('cart');
@@ -34,6 +36,16 @@ document.addEventListener('DOMContentLoaded', function () {
 
     expressShippingCheckbox.addEventListener('change', function () {
         updateCart();
+    });
+
+    shippingInfoButton.addEventListener('click', function () {
+        if (shippingForm.style.display === 'none') {
+            shippingForm.style.display = 'block';
+            shippingInfoButton.textContent = 'Hide Shipping Information';
+        } else {
+            shippingForm.style.display = 'none';
+            shippingInfoButton.textContent = 'Enter Shipping Information';
+        }
     });
 
     function updateCart() {
@@ -106,6 +118,29 @@ document.addEventListener('DOMContentLoaded', function () {
     checkoutButton.addEventListener('click', async function (e) {
         e.preventDefault();
 
+        // Collect shipping information
+        const shipTo = {
+            firstName: document.getElementById('first-name').value,
+            lastName: document.getElementById('last-name').value,
+            address: document.getElementById('address').value + " " + document.getElementById('address2').value,
+            city: document.getElementById('city').value,
+            state: document.getElementById('state').value,
+            zip: document.getElementById('zip').value,
+        };
+
+        if (!document.getElementById('address').value.trim()) {
+            alert('Please fill in the address field.');
+            return;
+        }
+        // Validate required shipping fields
+        const requiredFields = ['firstName', 'lastName', 'address', 'city', 'state', 'zip'];
+        for (const field of requiredFields) {
+            if (!shipTo[field]) {
+                alert(`Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field.`);
+                return;
+            }
+        }
+
         // Create a copy of lineItems for checkout
         const checkoutLineItems = [...lineItems];
         
@@ -119,7 +154,10 @@ document.addEventListener('DOMContentLoaded', function () {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ lineItems: checkoutLineItems })
+            body: JSON.stringify({ 
+                lineItems: checkoutLineItems,
+                shipTo: shipTo 
+            })
         })
         
         if (!response.ok) {

@@ -31,7 +31,7 @@ const items = {
 	}
 };
 
-function getAnAcceptPaymentPage(lineItems, callback) {
+function getAnAcceptPaymentPage(lineItems, shipTo, callback) {
 
 	var merchantAuthentication = new APIContracts.MerchantAuthenticationType();
 	merchantAuthentication.setName(API_LOGIN_ID);
@@ -46,7 +46,8 @@ function getAnAcceptPaymentPage(lineItems, callback) {
 	transactionRequest.setTransactionType(APIContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
 	transactionRequest.setAmount(amount);
 	transactionRequest.setLineItems(lineItems);
-	transactionRequest.setShipTo(new APIContracts.NameAndAddressType({}))
+	transactionRequest.setBillTo(shipTo); 
+	transactionRequest.setShipTo(shipTo);
 
 	var hostedPaymentButtonOptions = new APIContracts.SettingType();
 	hostedPaymentButtonOptions.setSettingName('hostedPaymentButtonOptions');
@@ -57,7 +58,7 @@ function getAnAcceptPaymentPage(lineItems, callback) {
 	var hostedPaymentShippingAddressOptions = new APIContracts.SettingType();
 	hostedPaymentShippingAddressOptions.setSettingName('hostedPaymentShippingAddressOptions');
 	hostedPaymentShippingAddressOptions.setSettingValue(JSON.stringify({
-		show: true,
+		show: false,
 		required: true,
 	}));
 
@@ -113,11 +114,17 @@ function getAnAcceptPaymentPage(lineItems, callback) {
 }
 
 app.post('/checkout', async (req, res) => {
-	let inputLineItems = req.body.lineItems ? req.body.lineItems : [];
+	let inputLineItems = req.body.lineItems ?? [];
 	if (inputLineItems.length === 0) {
 		return res.status(400).json({ error: 'No line items provided' });
 	} else if (inputLineItems.length === 1 && inputLineItems[0].itemId === "exp-ship") {
 		return res.status(400).json({ error: 'No product selected' });
+	}
+
+	let shipTo = req.body.shipTo ?? {};
+	if (!shipTo.firstName || !shipTo.lastName || !shipTo.address || !shipTo.city || !shipTo.state || !shipTo.zip) {
+		console.error('Incomplete shipping information:', shipTo);
+		return res.status(400).json({ error: 'Incomplete shipping information' });
 	}
 
 	let lineItemslist = [];
@@ -131,9 +138,11 @@ app.post('/checkout', async (req, res) => {
 		}));
 	}
 
+	shipTo = new APIContracts.NameAndAddressType(shipTo);
+
 	let lineItems = new APIContracts.ArrayOfLineItem();
 	lineItems.setLineItem(lineItemslist);
-    getAnAcceptPaymentPage(lineItems, (response) => {
+    getAnAcceptPaymentPage(lineItems, shipTo, (response) => {
         if (response != null) {
             res.json({ token: response.getToken() });
         } else {
