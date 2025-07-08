@@ -110,8 +110,8 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         }
         const subtotal = lineItems.reduce((sum, item) => sum + item.quantity * 59.00, 0);
-        const expressShippingCost = expressShippingCheckbox.checked ? 9.00 : 0;
-        const total = subtotal + expressShippingCost;
+        const shippingCost = expressShippingCheckbox.checked ? 9.00 : 0;
+        const total = subtotal + shippingCost;
         cartTotal.textContent = `$${total.toFixed(2)}`;
     }
 
@@ -139,15 +139,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 alert(`Please fill in the ${field.replace(/([A-Z])/g, ' $1').toLowerCase()} field.`);
                 return;
             }
-        }
+        } 
 
-        // Create a copy of lineItems for checkout
-        const checkoutLineItems = [...lineItems];
-        
-        // Add express shipping if checkbox is checked
-        if (expressShippingCheckbox.checked) {
-            checkoutLineItems.push({ itemId: "exp-ship", quantity: 1 });
-        }
 
         const response = await fetch('/checkout', {
             method: 'POST',
@@ -155,8 +148,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ 
-                lineItems: checkoutLineItems,
-                shipTo: shipTo 
+                lineItems,
+                shipTo,
+                shipping: expressShippingCheckbox.checked ? 'express' : 'standard'
             })
         })
         

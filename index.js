@@ -22,16 +22,15 @@ const items = {
 		"itemId": "wrp-tl",
 		"name": "Teal Wraps",
 		"unitPrice": 59.00,
-	},
-	"exp-ship": {
-		"itemId": "exp-ship",
-		"name": "Express Shipping",
-		"unitPrice": 9.00,
-		"quantity": 1, // Guarantees shipping only charges once
 	}
 };
 
-function getAnAcceptPaymentPage(lineItems, shipTo, callback) {
+const shippingOptions = {
+	"standard": 0.00,
+	"express": 9.00,
+};
+
+function getAnAcceptPaymentPage(lineItems, shipTo, shipping, callback) {
 
 	var merchantAuthentication = new APIContracts.MerchantAuthenticationType();
 	merchantAuthentication.setName(API_LOGIN_ID);
@@ -41,11 +40,13 @@ function getAnAcceptPaymentPage(lineItems, shipTo, callback) {
 	for (let item of lineItems.getLineItem()) {
 		amount += item.getUnitPrice() * item.getQuantity();
 	}
+	amount += shipping.getAmount();
 	
 	var transactionRequest = new APIContracts.TransactionRequestType();
 	transactionRequest.setTransactionType(APIContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
 	transactionRequest.setAmount(amount);
 	transactionRequest.setLineItems(lineItems);
+	transactionRequest.setShipping(shipping);
 	transactionRequest.setBillTo(shipTo); 
 	transactionRequest.setShipTo(shipTo);
 
@@ -127,6 +128,14 @@ app.post('/checkout', async (req, res) => {
 		return res.status(400).json({ error: 'Incomplete shipping information' });
 	}
 
+	let shippingMethod = req.body.shipping;
+	if (!shippingMethod || shippingOptions[shippingMethod] == undefined) {
+		return res.status(400).json({ error: 'Invalid shipping method' });
+	}
+	let shipping = new APIContracts.ExtendedAmountType();
+	shipping.setAmount(shippingOptions[shippingMethod]);
+	shipping.setName(shippingMethod);
+
 	let lineItemslist = [];
 	for (let item of inputLineItems) {
 		if (!item.itemId || !item.quantity || !items[item.itemId]) {
@@ -142,7 +151,7 @@ app.post('/checkout', async (req, res) => {
 
 	let lineItems = new APIContracts.ArrayOfLineItem();
 	lineItems.setLineItem(lineItemslist);
-    getAnAcceptPaymentPage(lineItems, shipTo, (response) => {
+    getAnAcceptPaymentPage(lineItems, shipTo, shipping, (response) => {
         if (response != null) {
             res.json({ token: response.getToken() });
         } else {
