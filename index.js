@@ -160,6 +160,10 @@ app.post('/checkout', async (req, res) => {
     });
 });
 
+app.post('/webhook', async (req, res) => {
+	console.log('Webhook received:', req.body);
+	res.sendStatus(200);
+});
 
 app.listen(8080, () => {
     console.log(`Server is running on port 8080`);
