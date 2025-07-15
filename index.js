@@ -88,14 +88,16 @@ app.post('/checkout', async (req, res) => {
 app.post('/payout', async (req, res) => {
 	console.log("Headers:", req.headers)
 	console.log("Header:", req.headers["x-anet-signature"])
-	const hmac = crypto.createHmac('sha512', Buffer.from(SIGNATURE_KEY, 'hex'));
-	hmac.update(Buffer.from(JSON.stringify(req.body)));
-	const digest = `sha512=${hmac.digest('hex')}`;
-	console.log("Digest:", digest);
-	if (digest !== req.headers["x-anet-signature"]) {
+	req.body.payload.authAmount = parseFloat(req.body.payload.authAmount).toFixed(2);
+	const hash = "sha512=" + crypto.createHmac('sha512', SIGNATURE_KEY)
+                   .update(JSON.stringify(req.body))
+                   .digest('hex')
+                   .toUpperCase();
+	console.log("hash:", hash);
+	if (hash !== req.headers["x-anet-signature"]) {
 		console.error('Invalid signature. Possible fraudulent request.');
 	}
-
+	else console.log('Valid signature.');
 	console.log('Payout received:', req.body);
 	res.sendStatus(200);
 });
