@@ -1,16 +1,23 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from 'express';
 import cors from 'cors';
-import 'dotenv/config';
-import authorizenet from 'authorizenet';
-const { APIContracts, APIControllers } = authorizenet;
+import crypto from 'crypto';
 
-const API_LOGIN_ID = process.env.API_LOGIN_ID;
-const TRANSACTION_KEY = process.env.TRANSACTION_KEY;
+import { initAuthNet, createPaymentPage } from './utils/authorize.js';
+initAuthNet();
 
 const app = express();
 app.use(cors())
 app.use(express.static("public"));
 app.use(express.json());
+
+const SIGNATURE_KEY = process.env.SIGNATURE_KEY;
+if (!SIGNATURE_KEY) {
+	console.error('SIGNATURE_KEY environment variable is not set.');
+	process.exit(1);
+}
 
 const items = {
 	"wrp-blk": {
@@ -30,98 +37,14 @@ const shippingOptions = {
 	"express": 9.00,
 };
 
-function getAnAcceptPaymentPage(lineItems, shipTo, shipping, callback) {
-
-	var merchantAuthentication = new APIContracts.MerchantAuthenticationType();
-	merchantAuthentication.setName(API_LOGIN_ID);
-	merchantAuthentication.setTransactionKey(TRANSACTION_KEY);
-
-	let amount = 0;
-	for (let item of lineItems.getLineItem()) {
-		amount += item.getUnitPrice() * item.getQuantity();
+const couponCodes = {
+	"": {
+		"discount": 0.00,
+		"affiliate-phone": "",
 	}
-	amount += shipping.getAmount();
-	
-	var transactionRequest = new APIContracts.TransactionRequestType();
-	transactionRequest.setTransactionType(APIContracts.TransactionTypeEnum.AUTHCAPTURETRANSACTION);
-	transactionRequest.setAmount(amount);
-	transactionRequest.setLineItems(lineItems);
-	transactionRequest.setShipping(shipping);
-	transactionRequest.setBillTo(shipTo); 
-	transactionRequest.setShipTo(shipTo);
-
-	var hostedPaymentButtonOptions = new APIContracts.SettingType();
-	hostedPaymentButtonOptions.setSettingName('hostedPaymentButtonOptions');
-	hostedPaymentButtonOptions.setSettingValue(JSON.stringify({
-		text: "Pay",
-	}));
-
-	var hostedPaymentShippingAddressOptions = new APIContracts.SettingType();
-	hostedPaymentShippingAddressOptions.setSettingName('hostedPaymentShippingAddressOptions');
-	hostedPaymentShippingAddressOptions.setSettingValue(JSON.stringify({
-		show: false,
-		required: true,
-	}));
-
-	var hostedPaymentReturnOptions = new APIContracts.SettingType();
-	hostedPaymentReturnOptions.setSettingName('hostedPaymentReturnOptions');
-	hostedPaymentReturnOptions.setSettingValue(JSON.stringify({
-		showReceipt: true,
-		url: "https://aries1542.github.io/whitmanswraps/",
-		urlText: "Continue",
-		cancelUrl: "https://aries1542.github.io/whitmanswraps/",
-		cancelUrlText: "Cancel",
-	}));
-
-	var settings = new APIContracts.ArrayOfSetting();
-	settings.setSetting([
-		hostedPaymentButtonOptions,
-		hostedPaymentShippingAddressOptions,
-		hostedPaymentReturnOptions
-	]);
-
-	var getRequest = new APIContracts.GetHostedPaymentPageRequest();
-	getRequest.setMerchantAuthentication(merchantAuthentication);
-	getRequest.setTransactionRequest(transactionRequest);
-	getRequest.setHostedPaymentSettings(settings);
-
-	var ctrl = new APIControllers.GetHostedPaymentPageController(getRequest.getJSON());
-    // Uncomment for PRODUCTION use
-    // ctrl.setEnvironment(SDKConstants.endpoint.production);
-
-	ctrl.execute(function(){
-
-		var apiResponse = ctrl.getResponse();
-
-		if (apiResponse != null) var response = new APIContracts.GetHostedPaymentPageResponse(apiResponse);
-
-		if(response != null) 
-		{
-			if(!(response.getMessages().getResultCode() == APIContracts.MessageTypeEnum.OK))
-			{
-				console.error('Error Code: ' + response.getMessages().getMessage()[0].getCode());
-				console.error('Error message: ' + response.getMessages().getMessage()[0].getText());
-			}
-		}
-		else
-		{
-			var apiError = ctrl.getError();
-			console.error(apiError);
-			console.error('Null response received');
-		}
-
-		callback(response);
-	});
-}
+};
 
 app.post('/checkout', async (req, res) => {
-	let inputLineItems = req.body.lineItems ?? [];
-	if (inputLineItems.length === 0) {
-		return res.status(400).json({ error: 'No line items provided' });
-	} else if (inputLineItems.length === 1 && inputLineItems[0].itemId === "exp-ship") {
-		return res.status(400).json({ error: 'No product selected' });
-	}
-
 	let shipTo = req.body.shipTo ?? {};
 	if (!shipTo.firstName || !shipTo.lastName || !shipTo.address || !shipTo.city || !shipTo.state || !shipTo.zip) {
 		console.error('Incomplete shipping information:', shipTo);
@@ -132,26 +55,28 @@ app.post('/checkout', async (req, res) => {
 	if (!shippingMethod || shippingOptions[shippingMethod] == undefined) {
 		return res.status(400).json({ error: 'Invalid shipping method' });
 	}
-	let shipping = new APIContracts.ExtendedAmountType();
-	shipping.setAmount(shippingOptions[shippingMethod]);
-	shipping.setName(shippingMethod);
+	const shipping = {
+		"amount": shippingOptions[shippingMethod],
+		"name": shippingMethod,
+	};
 
-	let lineItemslist = [];
-	for (let item of inputLineItems) {
+	let lineItems = req.body.lineItems ?? [];
+	if (lineItems.length === 0) {
+		return res.status(400).json({ error: 'No line items provided' });
+	} else if (lineItems.length === 1 && lineItems[0].itemId === "exp-ship") {
+		return res.status(400).json({ error: 'No product selected' });
+	}
+	lineItems = lineItems.map(item => {
 		if (!item.itemId || !item.quantity || !items[item.itemId]) {
 			return res.status(400).json({ error: 'Invalid line item format' });
 		}
-		lineItemslist.push(new APIContracts.LineItemType({
+		return {
 			quantity: item.quantity,
 			...items[item.itemId],
-		}));
-	}
-
-	shipTo = new APIContracts.NameAndAddressType(shipTo);
-
-	let lineItems = new APIContracts.ArrayOfLineItem();
-	lineItems.setLineItem(lineItemslist);
-    getAnAcceptPaymentPage(lineItems, shipTo, shipping, (response) => {
+		}
+	});
+	
+    createPaymentPage(lineItems, shipTo, shipping, (response) => {
         if (response != null) {
             res.json({ token: response.getToken() });
         } else {
@@ -160,8 +85,17 @@ app.post('/checkout', async (req, res) => {
     });
 });
 
-app.post('/webhook', async (req, res) => {
-	console.log('Webhook received:', req.body);
+app.post('/payout', async (req, res) => {
+	console.log("Header:", req.headers["X-ANET-Signature"])
+	const hmac = crypto.createHmac('sha512', Buffer.from(SIGNATURE_KEY, 'hex'));
+	hmac.update(JSON.stringify(req.body));
+	const digest = `sha512=${hmac.digest('hex')}`;
+	console.log("Digest:", digest);
+	if (digest !== req.headers["x-anet-signature"]) {
+		console.error('Invalid signature. Possible fraudulent request.');
+	}
+
+	console.log('Payout received:', req.body);
 	res.sendStatus(200);
 });
 
