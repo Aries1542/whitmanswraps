@@ -87,7 +87,7 @@ app.post('/checkout', async (req, res) => {
 
 app.post('/payout', async (req, res) => {
 	console.log("Headers:", req.headers)
-	console.log("Header:", req.headers["X-ANET-Signature"])
+	console.log("Header:", req.headers["x-anet-signature"])
 	const hmac = crypto.createHmac('sha512', Buffer.from(SIGNATURE_KEY, 'hex'));
 	hmac.update(JSON.stringify(req.body));
 	const digest = `sha512=${hmac.digest('hex')}`;
