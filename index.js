@@ -85,49 +85,7 @@ app.post('/checkout', async (req, res) => {
     });
 });
 
-const formatBody = (body) => {
-	// Create a deep copy to avoid modifying the original
-	const formattedBody = JSON.parse(JSON.stringify(body));
-	
-	// Make sure authAmount is a number value with exactly 2 decimal places
-	if (formattedBody.payload && formattedBody.payload.authAmount !== undefined) {
-		// Round to 2 decimal places and keep as a number
-		formattedBody.payload.authAmount = parseFloat(parseFloat(formattedBody.payload.authAmount).toFixed(2));
-	}
-	
-	// Create JSON string first
-	let jsonString = JSON.stringify(formattedBody);
-	
-	// Use a regex to find the authAmount field and ensure it has exactly 2 decimal places
-	// This regex looks for "authAmount":X where X is a number, and ensures it has .XX decimal format
-	if (formattedBody.payload && formattedBody.payload.authAmount !== undefined) {
-		const authAmountValue = formattedBody.payload.authAmount;
-		const authAmountStr = `"authAmount":${authAmountValue}`;
-		const authAmountFixed = `"authAmount":${authAmountValue.toFixed(2)}`;
-		
-		// Replace the raw value with the fixed decimal value
-		jsonString = jsonString.replace(authAmountStr, authAmountFixed);
-	}
-	
-	return jsonString;
-}
-
 app.post('/payout', async (req, res) => {
-	console.log("Headers:", req.headers)
-	console.log("Header:", req.headers["x-anet-signature"])
-	
-	const rawData = formatBody(req.body);
-	console.log("Raw data:", rawData);
-	const hash = "sha512=" + crypto.createHmac('sha512', SIGNATURE_KEY)
-                   .update(rawData)
-                   .digest('hex')
-                   .toUpperCase();
-	console.log("hash:", hash);
-	if (hash !== req.headers["x-anet-signature"]) {
-		console.error('Invalid signature. Possible fraudulent request.');
-	}
-	else console.log('Valid signature.');
-	console.log('Payout received:', req.body);
 	res.sendStatus(200);
 });
 
