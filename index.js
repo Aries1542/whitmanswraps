@@ -90,7 +90,7 @@ app.post('/payout', async (req, res) => {
 	console.log("Header:", req.headers["x-anet-signature"])
 	req.body.payload.authAmount = parseFloat(req.body.payload.authAmount).toFixed(2);
 	const hash = "sha512=" + crypto.createHmac('sha512', SIGNATURE_KEY)
-                   .update(JSON.stringify(req.body))
+                   .update(Buffer.from(req.body))
                    .digest('hex')
                    .toUpperCase();
 	console.log("hash:", hash);
