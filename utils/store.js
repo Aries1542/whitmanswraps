@@ -17,4 +17,4 @@ const exportLabels = () => {
     return fs.readFileSync("db/shippingLabels.csv", "utf8");
 }
 
-export { creditAffiliate, storeShippingLabel, exportLabels };
+export { storeShippingLabel, exportLabels };
