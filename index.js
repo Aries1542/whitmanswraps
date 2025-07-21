@@ -6,6 +6,7 @@ import cors from 'cors';
 import crypto from 'crypto';
 
 import { initAuthNet, createPaymentPage, getTransactionDetails } from './utils/authorize.js';
+import { storeShippingLabel, exportLabels } from "./utils/store.js";
 initAuthNet();
 
 const app = express();
@@ -87,14 +88,11 @@ app.post('/checkout', async (req, res) => {
 
 app.post('/shipping-label', async (req, res) => {
 	res.sendStatus(200);
-	console.log("req.body: ", req.body);
-	getTransactionDetails(req.body.payload.id, (response) => {
-		console.log("response: ", response);
-		console.log("transaction1: ", response.transaction);
-		console.log("shipping1: ", response.transaction.shipTo);
-		console.log("transaction2: ", response.getTransaction());
-		console.log("shipping2: ", response.getTransaction().getShipTo());
-
+	const transactionId = req.body.payload.id;
+	getTransactionDetails(transactionId, (response) => {
+		const shippingAddress = response.transaction.shipTo;
+		storeShippingLabel(transactionId, shippingAddress);
+		console.log("Currently stored shipping labels:\n" + exportLabels());
 	});
 });
 
