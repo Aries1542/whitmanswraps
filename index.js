@@ -88,9 +88,11 @@ app.post('/checkout', async (req, res) => {
 app.post('/shipping-label', async (req, res) => {
 	res.sendStatus(200);
 	console.log("req.body: ", req.body);
-	const transaction = getTransactionDetails(req.body.payload.id);
-	console.log("transaction: ", transaction);
-	console.log("Shipping info: ", transaction.getShipTo());
+	getTransactionDetails(req.body.payload.id, (transaction) => {
+		console.log("transaction: ", transaction);
+		console.log("Shipping info: ", transaction.getShipTo());
+		console.log("Shipping info: ", transaction.shipTo);
+	});
 });
 
 app.listen(8080, () => {
