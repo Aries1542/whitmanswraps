@@ -88,10 +88,16 @@ app.post('/checkout', async (req, res) => {
 app.post('/shipping-label', async (req, res) => {
 	res.sendStatus(200);
 	console.log("req.body: ", req.body);
-	getTransactionDetails(req.body.payload.id, (transaction) => {
-		console.log("transaction: ", transaction);
-		console.log("Shipping info: ", transaction.getShipTo());
-		console.log("Shipping info: ", transaction.shipTo);
+	getTransactionDetails(req.body.payload.id, (response) => {
+		console.log("response: ", response);
+		let transaction1 = response.getTransaction();
+		let transaction2 = response.transaction;
+		let response1 = response.getResponse();
+		let response2 = response.response;
+		console.log("transaction1: ", transaction1);
+		console.log("transaction2: ", transaction2);
+		console.log("response1: ", response1);
+		console.log("response2: ", response2);
 	});
 });
 
