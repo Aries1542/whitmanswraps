@@ -5,7 +5,7 @@ import express from 'express';
 import cors from 'cors';
 import crypto from 'crypto';
 
-import { initAuthNet, createPaymentPage } from './utils/authorize.js';
+import { initAuthNet, createPaymentPage, getTransactionDetails } from './utils/authorize.js';
 initAuthNet();
 
 const app = express();
@@ -85,8 +85,12 @@ app.post('/checkout', async (req, res) => {
     });
 });
 
-app.post('/payout', async (req, res) => {
+app.post('/shipping-label', async (req, res) => {
 	res.sendStatus(200);
+	console.log("req.body: ", req.body);
+	const transaction = getTransactionDetails(req.body.payload.id);
+	console.log("transaction: ", transaction);
+	console.log("Shipping info: ", transaction.getShipTo());
 });
 
 app.listen(8080, () => {
