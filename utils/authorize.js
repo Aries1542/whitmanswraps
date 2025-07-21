@@ -100,7 +100,7 @@ const createPaymentPage = (lineItems, shipTo, shippingMethod, callback) => {
 
 const getTransactionDetails = (transactionId, callback) => {
 	var getRequest = new APIContracts.GetTransactionDetailsRequest();
-	getRequest.setMerchantAuthentication(merchantAuthenticationType);
+	getRequest.setMerchantAuthentication(config.merchantAuth);
 	getRequest.setTransId(transactionId);
 
 	console.log(JSON.stringify(getRequest.getJSON(), null, 2));
