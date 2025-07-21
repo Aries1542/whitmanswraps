@@ -92,7 +92,9 @@ app.post('/shipping-label', async (req, res) => {
 	getTransactionDetails(transactionId, (response) => {
 		console.log("callback running");
 		const shippingAddress = response.transaction.shipTo;
+		console.log("shipping address:", shippingAddress);
 		storeShippingLabel(transactionId, shippingAddress);
+		console.log("labels stored");
 		console.log("Currently stored shipping labels:\n" + exportLabels());
 		console.log("callback done");
 	});
