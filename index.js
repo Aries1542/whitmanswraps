@@ -90,14 +90,11 @@ app.post('/shipping-label', async (req, res) => {
 	console.log("req.body: ", req.body);
 	getTransactionDetails(req.body.payload.id, (response) => {
 		console.log("response: ", response);
-		let transaction1 = response.getTransaction();
-		let transaction2 = response.transaction;
-		let response1 = response.getResponse();
-		let response2 = response.response;
-		console.log("transaction1: ", transaction1);
-		console.log("transaction2: ", transaction2);
-		console.log("response1: ", response1);
-		console.log("response2: ", response2);
+		console.log("transaction1: ", response.transaction);
+		console.log("id1: ", response.transaction.id);
+		console.log("transaction2: ", response.getTransaction());
+		console.log("id2: ", response.getTransaction().getId());
+
 	});
 });
 
