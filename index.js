@@ -91,9 +91,9 @@ app.post('/shipping-label', async (req, res) => {
 	getTransactionDetails(req.body.payload.id, (response) => {
 		console.log("response: ", response);
 		console.log("transaction1: ", response.transaction);
-		console.log("id1: ", response.transaction.id);
+		console.log("shipping1: ", response.transaction.shipTo);
 		console.log("transaction2: ", response.getTransaction());
-		console.log("id2: ", response.getTransaction().getId());
+		console.log("shipping2: ", response.getTransaction().getShipTo());
 
 	});
 });
