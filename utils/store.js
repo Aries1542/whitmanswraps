@@ -15,8 +15,12 @@ const storeShippingLabel = (transactionId, shipTo) => {
     console.log("Shipping label stored.");
 }
 
+const clearShippingLabels = () => {
+    fs.writeFileSync("db/shippingLabels.csv", "transactionID,Name,Address,Address Line 2,City,State,Zipcode\n");
+}
+
 const exportLabels = () => {
     return fs.readFileSync("db/shippingLabels.csv", "utf8");
 }
 
-export { storeShippingLabel, exportLabels };
+export { storeShippingLabel, clearShippingLabels, exportLabels };
