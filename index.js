@@ -103,21 +103,21 @@ if (!fs.existsSync('db/shippingLabels.csv')) {
 	initShippingLabels();
 }
 
-// cron.schedule('0 17 * * *', async () => {
-// 	console.log('exporting shipping labels');
-// 	sendShippingLabels().then((success) => {
-// 		if (success) {
-// 			console.log('Shipping labels sent successfully');
-// 			initShippingLabels();
-// 		} else {
-// 			console.error('Failed to send shipping labels');
-// 			sendErrorMessage();
-// 		}
-// 	}).catch((error) => {
-// 		console.error('Error during scheduled task:', error);
-// 		sendErrorMessage();
-// 	});
-// });
+cron.schedule('0 17 * * *', async () => {
+	console.log('exporting shipping labels');
+	sendShippingLabels().then((success) => {
+		if (success) {
+			console.log('Shipping labels sent successfully');
+			initShippingLabels();
+		} else {
+			console.error('Failed to send shipping labels');
+			sendErrorMessage();
+		}
+	}).catch((error) => {
+		console.error('Error during scheduled task:', error);
+		sendErrorMessage();
+	});
+});
 
 app.listen(8080, () => {
 	console.log(`Server is running on port 8080`);
