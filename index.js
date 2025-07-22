@@ -3,11 +3,14 @@ dotenv.config();
 
 import express from 'express';
 import cors from 'cors';
+import cron from 'node-cron';
 import crypto from 'crypto';
 
 import { initAuthNet, createPaymentPage, getTransactionDetails } from './utils/authorize.js';
-import { storeShippingLabel, exportLabels } from "./utils/store.js";
 initAuthNet();
+import { storeShippingLabel, clearShippingLabels, exportLabels } from "./utils/store.js";
+import { initMailer, sendShippingLabels, sendErrorMessage, testMailer } from "./utils/mailer.js";
+initMailer();
 
 const app = express();
 app.use(cors())
@@ -76,14 +79,14 @@ app.post('/checkout', async (req, res) => {
 			...items[item.itemId],
 		}
 	});
-	
-    createPaymentPage(lineItems, shipTo, shipping, (response) => {
-        if (response != null) {
-            res.json({ token: response.getToken() });
-        } else {
-            res.status(500).json({ error: 'Failed to retrieve token' });
-        }
-    });
+
+	createPaymentPage(lineItems, shipTo, shipping, (response) => {
+		if (response != null) {
+			res.json({ token: response.getToken() });
+		} else {
+			res.status(500).json({ error: 'Failed to retrieve token' });
+		}
+	});
 });
 
 app.post('/shipping-label', async (req, res) => {
@@ -100,6 +103,22 @@ app.post('/shipping-label', async (req, res) => {
 	});
 });
 
+cron.schedule('*/1 * * * *', async () => {
+	console.log('exporting shipping labels');
+	sendShippingLabels().then((success) => {
+		if (success) {
+			console.log('Shipping labels sent successfully');
+			clearShippingLabels();
+		} else {
+			console.error('Failed to send shipping labels');
+			sendErrorMessage();
+		}
+	}).catch((error) => {
+		console.error('Error during scheduled task:', error);
+		sendErrorMessage();
+	});
+});
+
 app.listen(8080, () => {
-    console.log(`Server is running on port 8080`);
+	console.log(`Server is running on port 8080`);
 });
