@@ -103,7 +103,7 @@ app.post('/shipping-label', async (req, res) => {
 	});
 });
 
-cron.schedule('*/1 * * * *', async () => {
+cron.schedule('*/5 * * * *', async () => {
 	console.log('exporting shipping labels');
 	sendShippingLabels().then((success) => {
 		if (success) {
