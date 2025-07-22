@@ -54,9 +54,9 @@ const createPaymentPage = (lineItems, shipTo, shippingMethod, callback) => {
 	hostedPaymentReturnOptions.setSettingName('hostedPaymentReturnOptions');
 	hostedPaymentReturnOptions.setSettingValue(JSON.stringify({
 		showReceipt: true,
-		url: "https://aries1542.github.io/whitmanswraps/",
+		url: "https://whitmans-wraps.onrender.com/",
 		urlText: "Continue",
-		cancelUrl: "https://aries1542.github.io/whitmanswraps/",
+		cancelUrl: "https://whitmans-wraps.onrender.com/",
 		cancelUrlText: "Cancel",
 	}));
 
