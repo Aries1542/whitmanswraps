@@ -5,10 +5,11 @@ import express from 'express';
 import cors from 'cors';
 import cron from 'node-cron';
 import crypto from 'crypto';
+import fs from 'fs';
 
 import { initAuthNet, createPaymentPage, getTransactionDetails } from './utils/authorize.js';
 initAuthNet();
-import { storeShippingLabel, clearShippingLabels, exportLabels } from "./utils/store.js";
+import { storeShippingLabel, initShippingLabels, exportLabels } from "./utils/store.js";
 import { initMailer, sendShippingLabels, sendErrorMessage } from "./utils/mailer.js";
 initMailer();
 
@@ -93,22 +94,21 @@ app.post('/shipping-label', async (req, res) => {
 	res.sendStatus(200);
 	const transactionId = req.body.payload.id;
 	getTransactionDetails(transactionId, (response) => {
-		console.log("callback running");
 		const shippingAddress = response.transaction.shipTo;
-		console.log("shipping address:", shippingAddress);
 		storeShippingLabel(transactionId, shippingAddress);
-		console.log("labels stored");
-		console.log("Currently stored shipping labels:\n" + exportLabels());
-		console.log("callback done");
 	});
 });
+
+if (!fs.existsSync('db/shippingLabels.csv')) {
+	initShippingLabels();
+}
 
 // cron.schedule('0 17 * * *', async () => {
 // 	console.log('exporting shipping labels');
 // 	sendShippingLabels().then((success) => {
 // 		if (success) {
 // 			console.log('Shipping labels sent successfully');
-// 			clearShippingLabels();
+// 			initShippingLabels();
 // 		} else {
 // 			console.error('Failed to send shipping labels');
 // 			sendErrorMessage();
