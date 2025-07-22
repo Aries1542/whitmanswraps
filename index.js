@@ -9,7 +9,7 @@ import crypto from 'crypto';
 import { initAuthNet, createPaymentPage, getTransactionDetails } from './utils/authorize.js';
 initAuthNet();
 import { storeShippingLabel, clearShippingLabels, exportLabels } from "./utils/store.js";
-import { initMailer, sendShippingLabels, sendErrorMessage, testMailer } from "./utils/mailer.js";
+import { initMailer, sendShippingLabels, sendErrorMessage } from "./utils/mailer.js";
 initMailer();
 
 const app = express();
