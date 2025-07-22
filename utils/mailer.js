@@ -64,7 +64,7 @@ const sendShippingLabels = async () => {
     const attachments = [
         {
             filename: 'shippingLabels.csv',
-            path: '../db/shippingLabels.csv',
+            path: 'db/shippingLabels.csv',
         }
     ];
 
