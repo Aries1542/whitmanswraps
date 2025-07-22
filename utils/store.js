@@ -10,7 +10,9 @@ const storeShippingLabel = (transactionId, shipTo) => {
         return;
     }
     const shippingLabel = `${transactionId},${shipTo.firstName} ${shipTo.lastName},${shipTo.address},${shipTo.address2 ?? ""},${shipTo.city},${shipTo.state},${shipTo.zip}\n`;
+    console.log("Storing shipping label:", shippingLabel.trim());
     fs.appendFileSync("db/shippingLabels.csv", shippingLabel);
+    console.log("Shipping label stored.");
 }
 
 const exportLabels = () => {
