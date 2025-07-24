@@ -5,6 +5,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@mailchimp/mailchimp_marketing": "^3.0.80",
     "authorizenet": "^1.0.10",
     "cors": "^2.8.5",
     "dotenv": "^17.0.0",

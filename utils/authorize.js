@@ -4,8 +4,12 @@ const { APIContracts, APIControllers } = authorizenet;
 const config = {};
 const initAuthNet = () => {
     config.merchantAuth = new APIContracts.MerchantAuthenticationType();
-	config.merchantAuth.setName(process.env.API_LOGIN_ID);
-	config.merchantAuth.setTransactionKey(process.env.TRANSACTION_KEY);
+	config.merchantAuth.setName(process.env.AUTHNET_API_LOGIN_ID);
+	config.merchantAuth.setTransactionKey(process.env.AUTHNET_TRANSACTION_KEY);
+	if (!config.merchantAuth.name || !config.merchantAuth.transactionKey) {
+	console.error('AUTHNET environment variables are not set.');
+	process.exit(1);
+}
 };
 
 const createPaymentPage = (lineItems, shipTo, shippingMethod, callback) => {

@@ -7,8 +7,11 @@ import cron from 'node-cron';
 import crypto from 'crypto';
 import fs from 'fs';
 
-import { initAuthNet, createPaymentPage, getTransactionDetails } from './utils/authorize.js';
-initAuthNet();
+
+import * as authorize from './utils/authorize.js';
+authorize.initAuthNet();
+import * as mailchimp from './utils/mailchimp.js'
+mailchimp.initMailchimp();
 import { storeShippingLabel, initShippingLabels, exportLabels } from "./utils/store.js";
 import { initMailer, sendShippingLabels, sendErrorMessage } from "./utils/mailer.js";
 initMailer();
@@ -18,11 +21,7 @@ app.use(cors())
 app.use(express.static("public"));
 app.use(express.json());
 
-const SIGNATURE_KEY = process.env.SIGNATURE_KEY;
-if (!SIGNATURE_KEY) {
-	console.error('SIGNATURE_KEY environment variable is not set.');
-	process.exit(1);
-}
+
 
 const items = {
 	"wrp-blk": {
@@ -81,7 +80,7 @@ app.post('/checkout', async (req, res) => {
 		}
 	});
 
-	createPaymentPage(lineItems, shipTo, shipping, (response) => {
+	authorize.createPaymentPage(lineItems, shipTo, shipping, (response) => {
 		if (response != null) {
 			res.json({ token: response.getToken() });
 		} else {
@@ -93,10 +92,14 @@ app.post('/checkout', async (req, res) => {
 app.post('/shipping-label', async (req, res) => {
 	res.sendStatus(200);
 	const transactionId = req.body.payload.id;
-	getTransactionDetails(transactionId, (response) => {
+	authorize.getTransactionDetails(transactionId, (response) => {
 		const shippingAddress = response.transaction.shipTo;
 		storeShippingLabel(transactionId, shippingAddress);
 	});
+});
+
+app.post('/subscriber', async (req, res) => {
+	res.status(200).json(await mailchimp.healthCheck());
 });
 
 if (!fs.existsSync('db/shippingLabels.csv')) {
