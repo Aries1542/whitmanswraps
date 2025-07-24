@@ -100,11 +100,12 @@
         <section class="community">
             <h2>JOIN OUR COMMUNITY</h2>
             <p>Be the first to know about restocks, new releases, and discounts!</p>
-            <form>
-                <input type="text" placeholder="First name">
-                <input type="email" placeholder="Email">
+            <form id="subscriber-form" onsubmit="event.preventDefault()">
+                <input type="text" name="firstName" placeholder="First name" required>
+                <input type="email" name="email" placeholder="Email" required>
                 <button type="submit" class="btn">Join</button>
             </form>
+            <script src="subscribe.js"></script>
         </section>
     </main>
 

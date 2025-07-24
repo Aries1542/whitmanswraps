@@ -6,6 +6,7 @@ import cors from 'cors';
 import cron from 'node-cron';
 import crypto from 'crypto';
 import fs from 'fs';
+import isEmail from 'validator/lib/isEmail.js';
 
 
 import * as authorize from './utils/authorize.js';
@@ -20,8 +21,6 @@ const app = express();
 app.use(cors())
 app.use(express.static("public"));
 app.use(express.json());
-
-
 
 const items = {
 	"wrp-blk": {
@@ -99,7 +98,14 @@ app.post('/shipping-label', async (req, res) => {
 });
 
 app.post('/subscriber', async (req, res) => {
-	res.status(200).json(await mailchimp.healthCheck());
+	if (!req.body.email || !req.body.firstName) {
+		return res.status(400).json({ error: 'Email and first name are required' });
+	}
+	if (!isEmail(req.body.email)) {
+		return res.status(400).json({ error: 'Invalid email format' });
+	}
+	mailchimp.addSubscriber(req.body.email, req.body.firstName);
+	res.sendStatus(201);
 });
 
 if (!fs.existsSync('db/shippingLabels.csv')) {

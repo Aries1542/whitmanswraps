@@ -1,19 +1,32 @@
-import mailchimp from '@mailchimp/mailchimp_marketing'
+import client from '@mailchimp/mailchimp_marketing'
 
+const config = {};
 const initMailchimp = () => {
-    if (!process.env.MAILCHIMP_API_KEY || !process.env.MAILCHIMP_SERVER_PREFIX) {
+    if (!process.env.MAILCHIMP_API_KEY || !process.env.MAILCHIMP_SERVER_PREFIX || !process.env.MAILCHIMP_AUDIENCE_ID) {
         console.error('MAILCHIMP environment variables are not set.');
         process.exit(1);
     }
-    mailchimp.setConfig({
+    client.setConfig({
         apiKey: process.env.MAILCHIMP_API_KEY,
         server: process.env.MAILCHIMP_SERVER_PREFIX
     });
+    config.audienceId = process.env.MAILCHIMP_AUDIENCE_ID;
 }
 
-const healthCheck = async () => {
-    const response = await mailchimp.ping.get();
-    return response;
+const addSubscriber = async (email, firstName) => {
+    const response = await client.lists.setListMember(
+    config.audienceId,
+    email,
+    { 
+        email_address: email, 
+        status_if_new: "subscribed",
+        status: "subscribed",
+        merge_fields: {
+            FNAME: firstName
+        }
+    }
+  );
+  console.log(response);
 }
 
-export { initMailchimp, healthCheck };
+export { initMailchimp, addSubscriber };
