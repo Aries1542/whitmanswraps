@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const community = document.getElementsByClassName('community');
+    const community = document.getElementById('community');
     const form = document.getElementById('subscriber-form');
     form.addEventListener('submit', async function(event) {
         event.preventDefault();
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             body: JSON.stringify(data)
         });
         if (response.ok) {
-            community[0].innerHTML = `
+            community.innerHTML = `
                 <h2>Thank you for subscribing!</h2>
                 <p>You will receive updates on restocks, new releases, and discounts.</p>
             `;

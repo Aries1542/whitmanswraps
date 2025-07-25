@@ -136,7 +136,7 @@ nav {
 
 /* Hero Section Styles */
 
-.hero {
+#hero {
     max-width: 100%;
 
     flex: 1;
@@ -152,36 +152,36 @@ nav {
     background-repeat: no-repeat;
 }
 
-.hero h2 {
+#hero h2 {
     font-size: 2em;
     font-weight: normal;
     color: #ffffff;
 }
 
-.hero p {
+#hero p {
     margin-bottom: 20px;
 }
 
-.hero .btn {
+#hero .btn {
     padding: 20px 50px;
     font-size: 2em;
     box-shadow: #000a 3px 3px 10px;
     transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.1s ease, transform 0.1s ease;
 }
 
-.hero .btn:hover {
+#hero .btn:hover {
     background-color: #18a090;
     box-shadow: #000a 2px 2px 5px;
 }
 
-.hero .btn:active {
+#hero .btn:active {
     box-shadow: #000a 0px 0px 0px;
     transform: translateY(2px);
 }
 
 /* How They Work Section Styles*/
 
-.how-they-work {
+#how-they-work {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -197,12 +197,12 @@ nav {
     padding: 20px 60px;
 }
 
-.how-they-work p {
+#how-they-work p {
     text-align: left;
     color: #fff;
 }
 
-.how-they-work video {
+#how-they-work video {
     flex: 1;
     max-width: 50%; 
     border-radius: 5px;
@@ -214,7 +214,7 @@ nav {
 
 /* Product Section Styles */
 
-.product {
+#product {
     display: flex;
     padding: 60px 40px;
     gap: 60px;
@@ -382,13 +382,13 @@ nav {
 }
 
 /* Cart Styles */
-.cart {
+#cart {
     padding: 40px 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-.cart h2 {
+#cart h2 {
     text-align: center;
     margin-bottom: 30px;
     color: #1ecbb7;
@@ -550,7 +550,7 @@ nav {
 }
 
 /* Product Info Styles */
-.product-info {
+#product-info {
     background-color: #121212;
     display: flex;
     flex-wrap: wrap;
@@ -560,17 +560,17 @@ nav {
     text-align: left;
 }
 
-.product-info h2 {
+#product-info h2 {
     color: #1ecbb7;
     margin-bottom: 20px;
 }
 
-.product-info h3 {
+#product-info h3 {
     color: #1ecbb7;
     margin-bottom: 20px;
 }
 
-.product-info p {
+#product-info p {
     color: #ffffff;
     margin-bottom: 20px;
 }
@@ -621,7 +621,7 @@ nav {
 }
 
 @media (max-width: 992px) {
-    .product-info {
+    #product-info {
         flex-direction: column;
     }
     
@@ -635,7 +635,7 @@ nav {
 
 /* Community Section Styles */
 
-.community {
+#community {
     max-width: 100%;
 
     padding: 60px 20px;
@@ -643,11 +643,11 @@ nav {
     background: #1ECBB7;
 }
 
-.community h2, .community p {
+#community h2, #community p {
     color: #ffffff; 
 }
 
-.community input {
+#community input {
     padding: 15px;
     margin: 0 5px 10px 5px;
     border-radius: 5px;
@@ -657,21 +657,21 @@ nav {
     width: 200px;
 }
 
-.community input::placeholder {
+#community input::placeholder {
     color: #aaa;
 }
 
-.community .btn {
+#community .btn {
     background: #FFF;
     color: #1a1a1a;
 }
 
-.community .btn:hover {
+#community .btn:hover {
     background-color: #dddddd;
 }
 
 /* How It Began Section Styles */
-.how-it-began {
+#how-it-began {
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -681,7 +681,7 @@ nav {
     gap: 0;
 }
 
-.how-it-began .about-image {
+#how-it-began .about-image {
     flex: 1;
     max-width: 50%;
     max-height: 100%;
@@ -689,20 +689,20 @@ nav {
     border-radius: 0;
 }
 
-.how-it-began .about-text {
+#how-it-began .about-text {
     flex: 1;
     text-align: left;
     padding: 40px;
 }
 
-.how-it-began h2 {
+#how-it-began h2 {
     font-size: 2.5em;
     margin-bottom: 20px;
     text-align: center;
     color: #1ECBB7;
 }
 
-.how-it-began p {
+#how-it-began p {
     margin: 0 0 35px 0;
     font-size: 1em;
     line-height: 1.5;
@@ -710,23 +710,23 @@ nav {
 }
 
 /* Join the Team Section Styles */
-.join-the-team {
+#join-the-team {
     padding: 20px 0;
     background-color: #121212;
     text-align: center;
 }
 
-.join-the-team h1 {
+#join-the-team h1 {
     color: #1ecbb7; 
 }
 
-.join-the-team p {
+#join-the-team p {
     font-size: 1.2em;
     color: #fff
 }
 
 /* Benefits Section Styles */
-.benefits {
+#benefits {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -734,7 +734,7 @@ nav {
     gap: 0;
 }
 
-.benefits .benefits-image {
+#benefits .benefits-image {
     flex: 1;
     max-height: 780px;
     max-width: 50%;
@@ -742,30 +742,30 @@ nav {
     border-radius: 0;
 }
 
-.benefits .benefits-text {
+#benefits .benefits-text {
     flex: 1;
     text-align: left;
     padding: 40px;
 }
 
-.benefits ul {
+#benefits ul {
     list-style: none
 }
 
-.benefits h2 {
+#benefits h2 {
     font-size: 2.5em;
     margin-bottom: 20px;
     text-align: center;
     color: #1ecbb7;
 }
 
-.benefits h3 {
+#benefits h3 {
     font-size: 1.5em;
     margin-bottom: 15px;
     color: #1ecbb7;
 }
 
-.benefits p {
+#benefits p {
     font-size: 1.2em;
     line-height: 1.6;
     color: #fff;
@@ -774,7 +774,7 @@ nav {
 }
 
 /* Privacy Policy Page */
-.privacy-policy h1, .privacy-policy h2, .privacy-policy h3 {
+#privacy-policy h1, #privacy-policy h2, #privacy-policy h3 {
     color: #1ecbb7;
 }
 
@@ -817,13 +817,13 @@ footer p {
 }
 
 /* Reviews Carousel Styles */
-.reviews {
+#reviews {
     padding: 60px 20px;
     text-align: center;
     background-color: #1a1a1a;
 }
 
-.reviews h2 {
+#reviews h2 {
     font-size: 2em;
     margin-bottom: 40px;
 }
@@ -938,22 +938,22 @@ footer p {
 }
 
 /* Affiliate Form Styles */
-.affiliate-form {
+#affiliate-form {
     padding: 60px 0;
     background-color: #121212;
 }
 
-.affiliate-form h2 {
+#affiliate-form h2 {
     color: #1ecbb7;
     margin-bottom: 20px;
 }
 
-.affiliate-form p {
+#affiliate-form p {
     color: #ccc;
     margin-bottom: 40px;
 }
 
-.affiliate-form form {
+#affiliate-form form {
     max-width: 850px;
     margin: 0 auto;
     padding: 40px;
@@ -962,33 +962,33 @@ footer p {
     border: 1px solid #333;
 }
 
-.affiliate-form .form-row {
+#affiliate-form .form-row {
     display: flex;
     justify-content: space-between;
     gap: 30px;
     margin-bottom: 20px;
 }
 
-.affiliate-form .form-row .form-group {
+#affiliate-form .form-row .form-group {
     flex: 1;
 }
 
-.affiliate-form .form-group {
+#affiliate-form .form-group {
     margin-bottom: 25px;
     text-align: left;
 }
 
-.affiliate-form label {
+#affiliate-form label {
     display: block;
     margin-bottom: 10px;
     font-weight: bold;
     color: #ccc;
 }
 
-.affiliate-form input[type="text"],
-.affiliate-form input[type="email"],
-.affiliate-form input[type="password"],
-.affiliate-form select {
+#affiliate-form input[type="text"],
+#affiliate-form input[type="email"],
+#affiliate-form input[type="password"],
+#affiliate-form select {
     width: 100%;
     padding: 12px;
     border: 1px solid #444;
@@ -1000,7 +1000,7 @@ footer p {
 }
 
 
-.affiliate-form select {
+#affiliate-form select {
     appearance: none; 
     background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
     background-repeat: no-repeat;
@@ -1008,24 +1008,24 @@ footer p {
     padding-right: 30px;
 }
 
-.affiliate-form .terms-checkbox {
+#affiliate-form .terms-checkbox {
     display: flex;
     align-items: center;
     gap: 10px;
     margin: 30px 0;
 }
 
-.affiliate-form .terms-checkbox input {
+#affiliate-form .terms-checkbox input {
     width: auto;
     margin: 0;
 }
 
-.affiliate-form .terms-checkbox label {
+#affiliate-form .terms-checkbox label {
     margin: 0;
     color: #ccc;
 }
 
-.affiliate-form .btn {
+#affiliate-form .btn {
     margin-top: 10px;
     padding: 15px 50px;
     font-size: 1.1em;
@@ -1056,32 +1056,32 @@ footer p {
         padding: 40px 20px;
     }
     
-    .hero {
+    #hero {
         padding: 300px 0 60px;
     }
     
-    .hero .btn {
+    #hero .btn {
         padding: 15px 40px;
         font-size: 1.5em;
     }
     
-    .how-they-work, .how-it-began, .benefits {
+    #how-they-work, #how-it-began, #benefits {
         flex-direction: column;
     }
     
-    .how-they-work-text, .how-it-began .about-text, .benefits .benefits-text {
+    .how-they-work-text, #how-it-began .about-text, #benefits .benefits-text {
         flex: 1;
         max-width: 100%;
         padding: 30px 20px;
     }
     
-    .how-they-work video, .how-it-began .about-image, .benefits .benefits-image {
+    #how-they-work video, #how-it-began .about-image, #benefits .benefits-image {
         flex: 1;
         max-width: 100%;
         order: -1; /* Show image/video first on mobile */
     }
     
-    .product {
+    #product {
         flex-direction: column;
         gap: 30px;
     }
@@ -1093,7 +1093,7 @@ footer p {
 }
 
 @media (max-width: 768px) {
-    .how-they-work video {
+    #how-they-work video {
         max-height: 300px;
     }
 
@@ -1187,22 +1187,22 @@ footer p {
     }
     
     /* Sections */
-    .hero {
+    #hero {
         padding: 200px 0 50px;
     }
     
-    .hero .btn {
+    #hero .btn {
         padding: 12px 30px;
         font-size: 1.3em;
     }
     
     /* Forms */
-    .community form {
+    #community form {
         flex-direction: column;
         align-items: center;
     }
     
-    .community input {
+    #community input {
         width: 100%;
         max-width: 300px;
         margin-bottom: 10px;
@@ -1231,11 +1231,11 @@ footer p {
         padding: 30px 15px;
     }
     
-    .hero {
+    #hero {
         padding: 180px 0 40px;
     }
     
-    .hero .btn {
+    #hero .btn {
         padding: 10px 25px;
         font-size: 1.2em;
     }
@@ -1249,8 +1249,8 @@ footer p {
     }
     
     .product-details .btn,
-    .affiliate-form .btn,
-    .community .btn {
+    #affiliate-form .btn,
+    #community .btn {
         width: 100%;
         padding: 12px 15px;
     }
@@ -1262,12 +1262,12 @@ footer p {
 
 /* Media query for responsive form */
 @media (max-width: 768px) {
-    .affiliate-form .form-row {
+    #affiliate-form .form-row {
         flex-direction: column;
         gap: 0;
     }
     
-    .affiliate-form form {
+    #affiliate-form form {
         padding: 20px;
     }
     
