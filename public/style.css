@@ -137,46 +137,47 @@ nav {
 /* Hero Section Styles */
 
 #hero {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    background-color: #000;
     max-width: 100%;
+    padding: 0;
+}
 
-    flex: 1;
+.call-to-action {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 25%;
+}
 
-    padding: 500px 0 200px;
-    background-image: url('images/Hero1.jpg');
-    background-size: cover;
-    background-position: 50% 55%;
-    background-repeat: no-repeat;
+#hero img {
+    max-width: 60%;
 }
 
 #hero h2 {
-    font-size: 2em;
-    font-weight: normal;
-    color: #ffffff;
+    margin: 0;
+    font-size: 1.5em;
 }
 
-#hero p {
-    margin-bottom: 20px;
+#hero h1 {
+    margin: 15px 0;
+    font-size: 3em;
 }
 
 #hero .btn {
-    padding: 20px 50px;
-    font-size: 2em;
-    box-shadow: #000a 3px 3px 10px;
-    transition: color 0.3s ease, background-color 0.3s ease, box-shadow 0.1s ease, transform 0.1s ease;
+    padding: 12px 30px;
+    font-size: 1.5em;
 }
 
 #hero .btn:hover {
     background-color: #18a090;
-    box-shadow: #000a 2px 2px 5px;
 }
 
 #hero .btn:active {
-    box-shadow: #000a 0px 0px 0px;
-    transform: translateY(2px);
+    background-color: #fff;
 }
 
 /* How They Work Section Styles*/
